@@ -15,7 +15,7 @@ from astral.sun import sun
 
 from utility import is_stale, update_svg
 
-logging.basicConfig(level=logging.INFO)
+logging.basicConfig(level=logging.DEBUG)
 
 # Map Climacell icons to local icons
 # Reference: https://docs.climacell.co/reference/data-layers-core
@@ -115,9 +115,9 @@ def is_daytime(location_lat, location_long):
     else:
         verdict = True
 
-    logging.debug(
-        "is_daytime({}{}) - {}"
-        .format(str(location_lat), str(location_long), str(verdict)))
+    logging.info(
+        "is_daytime({}, {}) - {}, {} vs {}"
+        .format(str(location_lat), str(location_long), str(verdict), str(dt), str(s['sunset'])))
 
     return verdict
 
@@ -126,13 +126,16 @@ def is_daytime(location_lat, location_long):
 # Reference: https://docs.climacell.co/reference/retrieve-timelines-basic
 def get_weather(climacell_apikey, location_latlong, units, filename, ttl):
 
+    #url = "https://data.climacell.co/v4/timelines?location=37.49,-75.96&units=imperial&fields=temperatureMin&fields=temperatureMax&fields=weatherCode&timesteps=1d&apikey=1IAjC7TxulcPtIo1sCC6VbLIjSpeAzbe"
     url = ("https://data.climacell.co/v4/timelines"
-        + "?location={}&units={}&fields=temperatureMin&fields=temperatureMax&fields=weatherCode&timesteps=1d&apikey={}"
-        .format(location_latlong, units, climacell_apikey))
+         + "?location={}&units={}&fields=temperatureMin&fields=temperatureMax&fields=weatherCode&timesteps=1d&apikey={}"
+         .format(location_latlong, units, climacell_apikey))
+        
     try:
         response_data = get_response_data(url, os.getcwd() + "/" + filename, ttl)
         weather = response_data['timelines'][0]['intervals'][0]['values']
-        logging.debug("get_weather() - {}".format(weather))
+        logging.info("get_weather() - {}".format(weather))
+        logging.info("{}".format(url))
     except Exception as error:
         logging.error(error)
         weather = False
@@ -161,18 +164,19 @@ def main():
 
     # gather relevant environment configs
 
-    climacell_apikey=os.getenv("CLIMACELL_APIKEY","")
+    climacell_apikey=os.getenv("CLIMACELL_APIKEY","1IAjC7TxulcPtIo1sCC6VbLIjSpeAzbe")
 
     if climacell_apikey=="":
         logging.error("CLIMACELL_APIKEY is missing")
         sys.exit(1)
 
-    weather_format=os.getenv("WEATHER_FORMAT", "CELSIUS")
+    weather_format=os.getenv("WEATHER_FORMAT", "FAHRENHEIT")
 
     if (weather_format == "CELSIUS"):
         units = "metric"
     else:
         units = "imperial"
+    logging.info("Units: {}".format(units))
 
     template_svg_filename = 'screen-template.svg'
     output_svg_filename = 'screen-output-weather.svg'
@@ -180,8 +184,8 @@ def main():
     # json response files
     weather_timelines_filename = 'climacell-timelines-response.json'
 
-    location_lat = os.getenv("WEATHER_LATITUDE","51.3656") 
-    location_long = os.getenv("WEATHER_LONGITUDE","-0.1963") 
+    location_lat = os.getenv("WEATHER_LATITUDE","37.4854") 
+    location_long = os.getenv("WEATHER_LONGITUDE","-75.9605") 
 
     location_latlong = (
         "{0:.2f},{1:.2f}"
@@ -193,6 +197,7 @@ def main():
     logging.info("Gathering weather")
 
     weather = get_weather(climacell_apikey, location_latlong, units, weather_timelines_filename, ttl)
+    logging.info("Returned weather: {}".format(weather))
 
     if (weather == False):
         logging.error("Unable to fetch weather payload. SVG will not be updated.")
@@ -211,7 +216,7 @@ def main():
         'ALERT_MESSAGE': "" # unused
     }
 
-    logging.debug("main() - {}".format(output_dict))
+    logging.info("main() - {}".format(output_dict))
 
     logging.info("Updating SVG")
     update_svg(template_svg_filename, output_svg_filename, output_dict)
