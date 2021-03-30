@@ -10,8 +10,11 @@ function log {
 log "Get Weather info"
 python3 screen-weather-get.py
 
-log "Get Calendar info"
-python3 screen-calendar-get.py
+log "Get Tide info"
+python3 screen-tides.py
+
+#log "Get Calendar info"
+# python3 screen-calendar-get.py
 
 log "Export to PNG"
 

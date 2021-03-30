@@ -713,27 +713,27 @@
         <tspan style="font-weight:bold;" x="330" dy="25">TIDE_TYPE_1</tspan>
     </text>
 
-    <text id="calendarentry2" x="330" y="305" font-size="29px" style="font-size:29px;line-height:0%;font-family:'Nimbus Sans L';text-anchor:beginning">
+    <text id="tide2" x="330" y="305" font-size="29px" style="font-size:29px;line-height:0%;font-family:'Nimbus Sans L';text-anchor:beginning">
         <tspan x="330" dy="25" style="font-size:23px;">TIDE_TIME_2</tspan>
         <tspan style="font-weight:bold;" x="330" dy="25">TIDE_TYPE_2</tspan>
     </text>
 
-    <text id="calendarentry3" x="330" y="355" font-size="29px" style="font-size:29px;line-height:0%;font-family:'Nimbus Sans L';text-anchor:beginning">
+    <text id="tide3" x="330" y="355" font-size="29px" style="font-size:29px;line-height:0%;font-family:'Nimbus Sans L';text-anchor:beginning">
         <tspan x="330" dy="25" style="font-size:23px;">TIDE_TIME_3</tspan>
         <tspan style="font-weight:bold;" x="330" dy="25">TIDE_TYPE_3</tspan>
     </text>
 
-    <text id="calendarentry4" x="330" y="405" font-size="29px" style="font-size:29px;line-height:0%;font-family:'Nimbus Sans L';text-anchor:beginning">
+    <text id="tide4" x="330" y="405" font-size="29px" style="font-size:29px;line-height:0%;font-family:'Nimbus Sans L';text-anchor:beginning">
         <tspan x="330" dy="25" style="font-size:23px;">TIDE_TIME_4</tspan>
         <tspan style="font-weight:bold;" x="330" dy="25">TIDE_TYPE_4</tspan>
     </text>
 
 
-    <text id="textday" x="600" y="75" style="text-anchor:middle;font-weight:600;font-size:47px;line-height:0%;font-family:'Nimbus Sans L';">DAY_NAME</text>
+    <text id="textday" x="370" y="170" style="text-anchor:middle;font-weight:600;font-size:47px;line-height:0%;font-family:'Nimbus Sans L';">DAY_NAME</text>
 
-    <text id="textdate" x="600" y="130" style="text-anchor:middle;font-size:40px;line-height:0%;font-family:'Nimbus Sans L';">DAY_ONE</text>
+    <text id="textdate" x="600" y="172" style="text-anchor:middle;font-size:40px;line-height:0%;font-family:'Nimbus Sans L';">DAY_ONE</text>
 
-    <text id="texttime" x="30" y="125" font-size="100px" style="font-weight:bold;font-size:100px;line-height:0%;font-family:'Nimbus Sans L';text-anchor:beginning">TIME_NOW</text>
+    <text id="texttime" x="30" y="125" font-size="150px" style="font-weight:bold;font-size:150px;line-height:0%;font-family:'Nimbus Sans L';text-anchor:beginning">TIME_NOW</text>
 
 </svg>
 
